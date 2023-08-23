@@ -25,11 +25,11 @@ services:
     networks:
       - inception
 
-  webserver:
+  nginx:
     depends_on:
       - wordpress
     image: nginx:1.15.12-alpine
-    container_name: webserver
+    container_name: nginx
     restart: unless-stopped
     ports:
       - "80:80"
