@@ -2,14 +2,19 @@ version: '3.9'
 
 services:
   mariadb:
-    image: mariadb:10
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+      args:
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     container_name: mariadb
     restart: unless-stopped
     env_file: .env
     volumes:
       - mariadb_data:/var/lib/mysql
-      - ./requirements/mariadb/conf:/etc/mysql/conf.d
-      - ./requirements/mariadb/tools/initdb:/docker-entrypoint-initdb.d
     networks:
       - inception
 
@@ -28,16 +33,16 @@ services:
   nginx:
     depends_on:
       - wordpress
-    image: nginx:1.15.12-alpine
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
     container_name: nginx
     restart: unless-stopped
     ports:
-      - "80:80"
       - "443:443"
     volumes:
       - wordpress_data:/var/www/html
-      - ./requirements/nginx/conf:/etc/nginx/conf.d
-      - ./requirements/nginx/tools/certificate:/etc/nginx/ssl
+      - ${CERTS_}:/etc/nginx/ssl
     networks:
       - inception
 
