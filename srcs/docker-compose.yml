@@ -19,9 +19,12 @@ services:
       - inception
 
   wordpress:
-    depends_on:
-      - mariadb
-    image: wordpress:5.1.1-fpm-alpine
+#    depends_on:
+#      - mariadb
+#    image: wordpress:5.1.1-fpm-alpine
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
     container_name: wordpress
     restart: unless-stopped
     env_file: .env
