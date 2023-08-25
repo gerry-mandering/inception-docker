@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bullseye-slim
 
 ARG MYSQL_DATABASE
 ARG MYSQL_ROOT_PASSWORD

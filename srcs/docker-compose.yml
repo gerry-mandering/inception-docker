@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.8'
 
 services:
   mariadb:
@@ -10,6 +10,8 @@ services:
         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         MYSQL_USER: ${MYSQL_USER}
         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    image: mariadb
+    pull_policy: never
     container_name: mariadb
     restart: unless-stopped
     env_file: .env
@@ -19,12 +21,13 @@ services:
       - inception
 
   wordpress:
-#    depends_on:
-#      - mariadb
-#    image: wordpress:5.1.1-fpm-alpine
+    depends_on:
+      - mariadb
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
+    image: wordpress
+    pull_policy: never
     container_name: wordpress
     restart: unless-stopped
     env_file: .env
@@ -39,6 +42,8 @@ services:
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
+    image: nginx
+    pull_policy: never
     container_name: nginx
     restart: unless-stopped
     ports:
@@ -51,7 +56,9 @@ services:
 
 volumes:
   wordpress_data:
+    name: wordpress_data
   mariadb_data:
+    name: mariadb_data
 
 networks:
   inception:
