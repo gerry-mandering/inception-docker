@@ -1,4 +1,3 @@
 .idea
 srcs/.env
-srcs/requirements/nginx/tools/certificate
 .DS_Store

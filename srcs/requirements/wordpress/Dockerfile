@@ -5,7 +5,7 @@ RUN apt-get update \
 
 RUN mkdir -p /run/php
 
-COPY ./www.conf /etc/php/7.4/fpm/pool.d/
+COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
 
 WORKDIR /var/www/html
 
