@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # symbolic linking logs
 ln -sf /dev/stdout /var/log/nginx/access.log && \
@@ -13,4 +14,4 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
         > /dev/null 2>&1
 
 # execute nginx
-nginx -g "daemon off;"
+exec nginx -g "daemon off;"

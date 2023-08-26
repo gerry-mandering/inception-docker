@@ -1,11 +1,16 @@
 #!/bin/bash
 set -e
 
+# Set privileges
+mkdir -p /var/lib/mysql /var/run/mysqld
+chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
+chmod 777 /var/run/mysqld
+
 # Start MariaDB server
 mysqld --user=root &
 
 # Wait for MariaDB to start
-until mysqladmin ping -hlocalhost -uroot -p${MYSQL_ROOT_PASSWORD} > /dev/null 2>&1; do
+until mysqladmin ping -hlocalhost -uroot > /dev/null 2>&1; do
     echo "Waiting for MariaDB to start..."
     sleep 1
 done
@@ -24,4 +29,4 @@ EOF
 mysqladmin -uroot -p${MYSQL_ROOT_PASSWORD} shutdown
 
 # Start the actual MariaDB instance
-exec mysqld --user=root
+exec mysqld --user=mysql
