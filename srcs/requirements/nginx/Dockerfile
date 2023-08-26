@@ -6,6 +6,8 @@ RUN apt-get update && \
 COPY ./conf/default.conf /etc/nginx/conf.d/default.conf
 COPY tools/docker-entrypoint.sh /docker-entrypoint.sh
 
+RUN chmod +x /docker-entrypoint.sh
+
 EXPOSE 433
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]

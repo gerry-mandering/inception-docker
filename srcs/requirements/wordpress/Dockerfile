@@ -6,6 +6,8 @@ RUN apt-get update && \
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
 COPY ./tools/docker-entrypoint.sh /docker-entrypoint.sh
 
+RUN chmod +x /docker-entrypoint.sh
+
 WORKDIR /var/www/html
 
 EXPOSE 9000

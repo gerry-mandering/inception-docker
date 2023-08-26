@@ -6,6 +6,8 @@ RUN apt-get update && \
 COPY ./conf/my.cnf /etc/mysql/my.cnf
 COPY ./tools/docker-entrypoint.sh /docker-entrypoint.sh
 
+RUN chmod +x /docker-entrypoint.sh
+
 EXPOSE 3306
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
