@@ -9,7 +9,7 @@ chmod -R 755 /var/www/html
 mkdir -p /run/php
 
 # install wp-cli
-wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar > /dev/null 2>&1
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
